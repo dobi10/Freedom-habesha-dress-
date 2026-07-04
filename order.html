@@ -8,7 +8,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-
 *{
 margin:0;
 padding:0;
@@ -93,17 +92,13 @@ text-align:center;
 padding:30px;
 margin-top:50px;
 }
-
 </style>
-
 </head>
 
 <body>
 
 <header>
-
 <div class="logo">Freedom Habesha Dress</div>
-
 </header>
 
 <div class="container">
@@ -119,7 +114,6 @@ margin-top:50px;
 <input type="tel" required>
 
 <label>Select Product</label>
-
 <select required>
 <option>Women's Habesha Dress</option>
 <option>Men's Traditional Wear</option>
@@ -128,7 +122,6 @@ margin-top:50px;
 </select>
 
 <label>Size</label>
-
 <select required>
 <option>S</option>
 <option>M</option>
@@ -138,42 +131,59 @@ margin-top:50px;
 </select>
 
 <label>Quantity</label>
-
 <input type="number" min="1" value="1">
 
 <label>Additional Notes</label>
+<textarea placeholder="Color, delivery details..."></textarea>
 
-<textarea placeholder="Color, design, delivery details..."></textarea>
 <button type="submit">Submit Order</button>
 
 </form>
 
-<p id="msg" style="text-align:center;margin-top:15px;color:green;"></p>
+<p id="msg" style="text-align:center;margin-top:15px;"></p>
 
 </div>
 
 <footer>
-
 <p>Freedom Habesha Dress</p>
 <p>📍 Algeria St, Addis Ababa</p>
 <p>📞 090 428 9325</p>
 <p>&copy; 2026 All Rights Reserved</p>
-
 </footer>
 
-<script>
+<script type="module">
+import { db, collection, addDoc } from "./firebase.js";
 
 const form = document.getElementById("orderForm");
 const msg = document.getElementById("msg");
 
-form.addEventListener("submit", function(e){
+form.addEventListener("submit", async (e) => {
 e.preventDefault();
 
-msg.textContent = "✅ Order submitted successfully! We will call you soon.";
+const order = {
+name: form[0].value,
+phone: form[1].value,
+product: form[2].value,
+size: form[3].value,
+quantity: form[4].value,
+notes: form[5].value,
+status: "Pending",
+time: new Date().toISOString()
+};
+
+try {
+await addDoc(collection(db, "orders"), order);
+
+msg.textContent = "✅ Order sent successfully!";
+msg.style.color = "green";
 
 form.reset();
-});
 
+} catch (error) {
+msg.textContent = "❌ Error sending order!";
+msg.style.color = "red";
+}
+});
 </script>
 
 </body>
