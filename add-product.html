@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Add Product - Freedom Habesha</title>
+
+<style>
+body{
+font-family:Arial;
+background:#111;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+margin:0;
+}
+
+.box{
+background:white;
+padding:25px;
+border-radius:10px;
+width:350px;
+}
+
+input,textarea{
+width:100%;
+padding:10px;
+margin:10px 0;
+border:1px solid #ccc;
+border-radius:6px;
+}
+
+button{
+width:100%;
+padding:10px;
+background:#111;
+color:white;
+border:none;
+cursor:pointer;
+}
+
+button:hover{
+background:#d4af37;
+color:black;
+}
+
+#msg{
+text-align:center;
+color:green;
+margin-top:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+<h2>Add Product</h2>
+
+<input id="name" placeholder="Product name">
+<input id="price" placeholder="Price">
+<input id="image" placeholder="Image URL">
+<textarea id="desc" placeholder="Description"></textarea>
+
+<button onclick="addProduct()">Add</button>
+
+<p id="msg"></p>
+
+</div>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const firebaseConfig = {
+apiKey: "YOUR_API_KEY",
+authDomain: "YOUR_PROJECT.firebaseapp.com",
+projectId: "YOUR_PROJECT_ID",
+storageBucket: "YOUR_PROJECT.appspot.com",
+messagingSenderId: "YOUR_SENDER_ID",
+appId: "YOUR_APP_ID"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+window.addProduct = async function(){
+
+const name = document.getElementById("name").value;
+const price = document.getElementById("price").value;
+const image = document.getElementById("image").value;
+const desc = document.getElementById("desc").value;
+
+await addDoc(collection(db,"products"),{
+name,
+price,
+image,
+desc,
+createdAt:new Date()
+});
+
+document.getElementById("msg").innerText="Product added successfully!";
+}
+</script>
+
+</body>
+</html>
