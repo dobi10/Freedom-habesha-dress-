@@ -1,28 +1,17 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
+// Your web app's Firebase configuration
 const firebaseConfig = {
-apiKey: "YOUR_API_KEY",
-authDomain: "YOUR_PROJECT.firebaseapp.com",
-projectId: "YOUR_PROJECT_ID",
-storageBucket: "YOUR_PROJECT.appspot.com",
-messagingSenderId: "YOUR_SENDER_ID",
-appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyBnEapm8W1ilLQiMImyHSLEGcTYDw8mKKk",
+  authDomain: "freedom-habesha.firebaseapp.com",
+  projectId: "freedom-habesha",
+  storageBucket: "freedom-habesha.firebasestorage.app",
+  messagingSenderId: "401375892502",
+  appId: "1:401375892502:web:6ac1591e7814686c91d137"
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-
-export const db = getFirestore(app);
-export const auth = getAuth(app);
-
-export {
-collection,
-addDoc,
-getDocs,
-deleteDoc,
-doc,
-updateDoc,
-signInWithEmailAndPassword,
-onAuthStateChanged
-};
