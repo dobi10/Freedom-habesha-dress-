@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Freedom Habesha Dress | Collections</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#f8f6f2;
+}
+
+header{
+background:#111;
+color:white;
+padding:18px 8%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+position:sticky;
+top:0;
+}
+
+.logo{
+font-size:28px;
+font-weight:bold;
+color:#d4af37;
+}
+
+nav a{
+color:white;
+text-decoration:none;
+margin-left:20px;
+}
+
+.hero{
+height:40vh;
+background:linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.55)),
+url("https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1600&q=80");
+background-size:cover;
+background-position:center;
+display:flex;
+justify-content:center;
+align-items:center;
+color:white;
+text-align:center;
+}
+
+.hero h1{
+font-size:50px;
+}
+
+.products{
+padding:70px 8%;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:30px;
+}
+
+.product{
+background:white;
+border-radius:15px;
+overflow:hidden;
+box-shadow:0 10px 25px rgba(0,0,0,.1);
+}
+
+.product img{
+width:100%;
+height:320px;
+object-fit:cover;
+}
+
+.product h3{
+padding:15px;
+}
+
+.product p{
+padding:0 15px;
+}
+
+.price{
+padding:15px;
+font-size:22px;
+font-weight:bold;
+color:#d4af37;
+}
+
+.btn{
+display:block;
+margin:15px;
+padding:14px;
+background:#111;
+color:white;
+text-align:center;
+text-decoration:none;
+border-radius:8px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">Freedom Habesha Dress</div>
+
+<nav>
+<a href="index.html">Home</a>
+<a href="collection.html">Collections</a>
+<a href="#">Contact</a>
+</nav>
+
+</header>
+
+<section class="hero">
+
+<div>
+<h1>Our Collections</h1>
+<p>Elegant Ethiopian Traditional Fashion</p>
+</div>
+
+</section>
+
+<section class="products">
+
+<div class="product">
+
+<img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=900&q=80">
+
+<h3>Luxury Habesha Dress</h3>
+
+<p>Premium handmade traditional dress.</p>
+
+<div class="price">Order Now</div>
+
+<a href="tel:0904289325" class="btn">Call to Order</a>
+
+</div>
+  <div class="product">
+
+<img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=900&q=80">
+
+<h3>Men's Traditional Wear</h3>
+
+<p>Classic Ethiopian traditional clothing for special occasions.</p>
+
+<div class="price">Order Now</div>
+
+<a href="tel:0904289325" class="btn">Call to Order</a>
+
+</div>
+
+<div class="product">
+
+<img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=900&q=80">
+
+<h3>Kids Habesha Collection</h3>
+
+<p>Beautiful traditional outfits designed for children.</p>
+
+<div class="price">Order Now</div>
+
+<a href="tel:0904289325" class="btn">Call to Order</a>
+
+</div>
+
+<div class="product">
+
+<img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=900&q=80">
+
+<h3>Wedding Collection</h3>
+
+<p>Luxury Habesha wedding dresses for unforgettable celebrations.</p>
+
+<div class="price">Order Now</div>
+
+<a href="tel:0904289325" class="btn">Call to Order</a>
+
+</div>
+
+<div class="product">
+
+<img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=900&q=80">
+
+<h3>Modern Habesha Style</h3>
+
+<p>Traditional elegance with a modern touch.</p>
+
+<div class="price">Order Now</div>
+
+<a href="tel:0904289325" class="btn">Call to Order</a>
+
+</div>
+
+</section>
+<footer style="background:#111;color:white;text-align:center;padding:50px 20px;margin-top:50px;">
+
+<h2 style="color:#d4af37;">Freedom Habesha Dress</h2>
+
+<p>Luxury Ethiopian Traditional Fashion</p>
+
+<br>
+
+<p>📍 Algeria St, Addis Ababa</p>
+
+<p>📞 090 428 9325</p>
+
+<p>Orders by Phone</p>
+
+<br>
+
+<p>&copy; 2026 Freedom Habesha Dress. All Rights Reserved.</p>
+
+</footer>
+
+<button id="topBtn">↑</button>
+
+<style>
+
+#topBtn{
+position:fixed;
+bottom:20px;
+right:20px;
+width:50px;
+height:50px;
+border:none;
+border-radius:50%;
+background:#d4af37;
+color:#111;
+font-size:22px;
+font-weight:bold;
+cursor:pointer;
+display:none;
+box-shadow:0 8px 20px rgba(0,0,0,.3);
+}
+
+#topBtn:hover{
+transform:scale(1.1);
+}
+
+</style>
+
+<script>
+
+const topBtn=document.getElementById("topBtn");
+
+window.addEventListener("scroll",()=>{
+
+if(window.scrollY>300){
+
+topBtn.style.display="block";
+
+}else{
+
+topBtn.style.display="none";
+
+}
+
+});
+
+topBtn.onclick=()=>{
+
+window.scrollTo({
+
+top:0,
+
+behavior:"smooth"
+
+});
+
+};
+
+</script>
+
+</body>
+</html>
