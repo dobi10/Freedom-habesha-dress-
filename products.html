@@ -81,10 +81,7 @@ color:black;
 Our Products
 </header>
 
-<div class="container" id="products">
-
-Loading products...
-</div>
+<div class="container" id="products">Loading products...</div>
 
 <script type="module">
 
@@ -126,6 +123,7 @@ container.innerHTML += `
 }
 
 window.order = function(name){
+localStorage.setItem("selectedProduct", name);
 window.location.href = "order.html";
 }
 
