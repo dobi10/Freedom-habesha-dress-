@@ -2,16 +2,17 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Admin Login</title>
+<title>Admin Login - Freedom Habesha Dress</title>
 
 <style>
 body{
-font-family:Poppins, sans-serif;
+font-family:Arial, sans-serif;
 background:#111;
 display:flex;
 justify-content:center;
 align-items:center;
 height:100vh;
+margin:0;
 }
 
 .box{
@@ -22,10 +23,16 @@ width:300px;
 text-align:center;
 }
 
+h2{
+margin-bottom:15px;
+}
+
 input{
 width:100%;
 padding:10px;
 margin:10px 0;
+border:1px solid #ccc;
+border-radius:6px;
 }
 
 button{
@@ -34,12 +41,19 @@ padding:10px;
 background:#111;
 color:white;
 border:none;
+border-radius:6px;
 cursor:pointer;
+font-size:16px;
 }
 
 button:hover{
 background:#d4af37;
 color:black;
+}
+
+#msg{
+color:red;
+margin-top:10px;
 }
 </style>
 </head>
@@ -49,7 +63,7 @@ color:black;
 <div class="box">
 <h2>Admin Login</h2>
 
-<input type="password" id="pass" placeholder="Enter password">
+<input type="password" id="pass" placeholder="Enter admin password">
 
 <button onclick="login()">Login</button>
 
@@ -64,7 +78,7 @@ if(pass === "admin123"){
 localStorage.setItem("admin","true");
 window.location.href="admin.html";
 }else{
-document.getElementById("msg").innerText="Wrong password";
+document.getElementById("msg").innerText="Wrong password!";
 }
 }
 </script>
