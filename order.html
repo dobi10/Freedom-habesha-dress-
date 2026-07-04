@@ -184,7 +184,12 @@ msg.textContent = "❌ Error sending order!";
 msg.style.color = "red";
 }
 });
-</script>
+</window.onload = function(){
+const product = localStorage.getItem("selectedProduct");
+if(product){
+document.getElementById("product").value = product;
+}
+  }>
 
 </body>
 </html>
