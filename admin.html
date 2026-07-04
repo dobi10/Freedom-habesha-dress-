@@ -1,126 +1,80 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<title>Admin Dashboard - Freedom Habesha Dress</title>
+<title>Admin</title>
 
 <style>
-body{
-font-family:Arial, sans-serif;
-background:#f4f4f4;
-margin:0;
-}
-
-header{
-background:#111;
-color:#d4af37;
-padding:20px;
-text-align:center;
-font-size:22px;
-font-weight:bold;
-}
-
-.container{
-max-width:1000px;
-margin:auto;
-padding:20px;
-}
-
-.card{
-background:white;
-padding:15px;
-margin:15px 0;
-border-radius:10px;
-box-shadow:0 5px 15px rgba(0,0,0,0.1);
-}
-
-button{
-background:#111;
-color:white;
-border:none;
-padding:8px 12px;
-margin-top:10px;
-cursor:pointer;
-border-radius:6px;
-}
-
-button:hover{
-background:#d4af37;
-color:black;
-}
+body{font-family:Arial;background:#f6f6f6;margin:0}
+header{background:#111;color:#d4af37;padding:20px;text-align:center}
+.container{max-width:900px;margin:auto;padding:20px}
+.card{background:white;padding:15px;margin:10px 0;border-radius:10px}
+button{padding:8px 12px;margin-top:10px;background:#111;color:white;border:none}
+button:hover{background:#d4af37;color:black}
 </style>
 </head>
 
 <body>
 
-<header>
-Freedom Habesha Admin Panel
-</header>
+<header>Admin Dashboard</header>
 
 <div class="container">
 
-<div class="card">
 <h3>Total Orders: <span id="total">0</span></h3>
-</div>
 
-<div id="orders">Loading orders...</div>
+<div id="orders"></div>
 
 </div>
 
 <script type="module">
 
-if(localStorage.getItem("admin") !== "true"){
-window.location.href = "login.html";
-}
+import {
+db,collection,getDocs,deleteDoc,doc,updateDoc,onAuthStateChanged,auth
+} from "./firebase.js";
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, collection, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-const firebaseConfig = {
-apiKey: "YOUR_API_KEY",
-authDomain: "YOUR_PROJECT.firebaseapp.com",
-projectId: "YOUR_PROJECT_ID",
-storageBucket: "YOUR_PROJECT.appspot.com",
-messagingSenderId: "YOUR_SENDER_ID",
-appId: "YOUR_APP_ID"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+onAuthStateChanged(auth,(user)=>{
+if(!user) window.location.href="login.html";
+});
 
 const ordersDiv = document.getElementById("orders");
 
-async function loadOrders(){
+async function load(){
 const snap = await getDocs(collection(db,"orders"));
 
 document.getElementById("total").innerText = snap.size;
 
-ordersDiv.innerHTML = "";
+ordersDiv.innerHTML="";
 
-snap.forEach((d)=>{
+snap.forEach(d=>{
 const data = d.data();
 
 ordersDiv.innerHTML += `
 <div class="card">
 <h3>${data.name}</h3>
-<p>📞 ${data.phone}</p>
-<p>👗 ${data.product}</p>
-<p>📏 ${data.size}</p>
-<p>🔢 Qty: ${data.quantity}</p>
-<p>📦 Status: ${data.status}</p>
+<p>${data.phone}</p>
+<p>${data.product}</p>
+<p>Status: ${data.status}</p>
 
-<button onclick="deleteOrder('${d.id}')">Delete</button>
-</div>
-`;
+<button onclick="done('${d.id}')">Delivered</button>
+<button onclick="del('${d.id}')">Delete</button>
+</div>`;
 });
 }
 
-window.deleteOrder = async function(id){
+window.del = async function(id){
 await deleteDoc(doc(db,"orders",id));
-loadOrders();
+load();
 }
 
-loadOrders();
+window.done = async function(id){
+await updateDoc(doc(db,"orders",id),{
+status:"Delivered"
+});
+load();
+}
+
+load();
+
 </script>
 
 </body>
