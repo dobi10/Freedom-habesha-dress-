@@ -2,13 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Dashboard | Freedom Habesha Dress</title>
+<title>Admin Dashboard - Freedom Habesha Dress</title>
 
 <style>
 body{
-font-family:Poppins, sans-serif;
-background:#f5f5f5;
+font-family:Arial, sans-serif;
+background:#f4f4f4;
 margin:0;
 }
 
@@ -17,14 +16,14 @@ background:#111;
 color:#d4af37;
 padding:20px;
 text-align:center;
-font-size:24px;
+font-size:22px;
 font-weight:bold;
 }
 
 .container{
-padding:20px;
 max-width:1000px;
 margin:auto;
+padding:20px;
 }
 
 .card{
@@ -50,7 +49,6 @@ background:#d4af37;
 color:black;
 }
 </style>
-
 </head>
 
 <body>
@@ -59,12 +57,22 @@ color:black;
 Freedom Habesha Admin Panel
 </header>
 
-<div class="container" id="orders">
+<div class="container">
 
-Loading orders...
+<div class="card">
+<h3>Total Orders: <span id="total">0</span></h3>
+</div>
+
+<div id="orders">Loading orders...</div>
+
 </div>
 
 <script type="module">
+
+if(localStorage.getItem("admin") !== "true"){
+window.location.href = "login.html";
+}
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getFirestore, collection, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
@@ -85,20 +93,21 @@ const ordersDiv = document.getElementById("orders");
 async function loadOrders(){
 const snap = await getDocs(collection(db,"orders"));
 
+document.getElementById("total").innerText = snap.size;
+
 ordersDiv.innerHTML = "";
 
 snap.forEach((d)=>{
-
 const data = d.data();
 
 ordersDiv.innerHTML += `
 <div class="card">
 <h3>${data.name}</h3>
-<p><b>Phone:</b> ${data.phone}</p>
-<p><b>Product:</b> ${data.product}</p>
-<p><b>Size:</b> ${data.size}</p>
-<p><b>Qty:</b> ${data.quantity}</p>
-<p><b>Status:</b> ${data.status}</p>
+<p>📞 ${data.phone}</p>
+<p>👗 ${data.product}</p>
+<p>📏 ${data.size}</p>
+<p>🔢 Qty: ${data.quantity}</p>
+<p>📦 Status: ${data.status}</p>
 
 <button onclick="deleteOrder('${d.id}')">Delete</button>
 </div>
@@ -115,4 +124,4 @@ loadOrders();
 </script>
 
 </body>
-  </html>
+</html>
