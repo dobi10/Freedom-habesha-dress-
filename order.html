@@ -2,95 +2,60 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Order | Freedom Habesha Dress</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>Order - Freedom Habesha Dress</title>
 
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
-
 body{
-background:#f8f6f2;
+font-family:Arial;
+background:#f6f6f6;
+margin:0;
 }
 
 header{
 background:#111;
-color:#fff;
-padding:18px 8%;
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
-
-.logo{
-font-size:28px;
-font-weight:bold;
 color:#d4af37;
+padding:20px;
+text-align:center;
+font-size:22px;
+font-weight:bold;
 }
 
 .container{
-max-width:700px;
-margin:50px auto;
-background:#fff;
-padding:35px;
-border-radius:15px;
-box-shadow:0 10px 25px rgba(0,0,0,.1);
+max-width:600px;
+margin:40px auto;
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
 }
 
-h1{
-text-align:center;
-margin-bottom:25px;
-}
-
-label{
-display:block;
-margin-top:15px;
-font-weight:600;
-}
-
-input,select,textarea{
+input,textarea,select{
 width:100%;
-padding:12px;
-margin-top:8px;
+padding:10px;
+margin:10px 0;
 border:1px solid #ccc;
-border-radius:8px;
-font-size:16px;
-}
-
-textarea{
-height:120px;
-resize:vertical;
+border-radius:6px;
 }
 
 button{
 width:100%;
-margin-top:25px;
-padding:15px;
+padding:12px;
 background:#111;
 color:white;
 border:none;
-border-radius:8px;
-font-size:18px;
 cursor:pointer;
+border-radius:6px;
 }
 
 button:hover{
 background:#d4af37;
-color:#111;
+color:black;
 }
 
-footer{
-background:#111;
-color:white;
+#msg{
 text-align:center;
-padding:30px;
-margin-top:50px;
+color:green;
+margin-top:10px;
 }
 </style>
 </head>
@@ -98,61 +63,60 @@ margin-top:50px;
 <body>
 
 <header>
-<div class="logo">Freedom Habesha Dress</div>
+Place Your Order
 </header>
 
 <div class="container">
 
-<h1>Place Your Order</h1>
-
 <form id="orderForm">
 
-<label>Full Name</label>
-<input type="text" required>
+<input type="text" id="name" placeholder="Your Name" required>
+<input type="text" id="phone" placeholder="Phone Number" required>
 
-<label>Phone Number</label>
-<input type="tel" required>
+<input type="text" id="product" readonly placeholder="Selected Product">
 
-<label>Select Product</label>
-<select required>
-<option>Women's Habesha Dress</option>
-<option>Men's Traditional Wear</option>
-<option>Kids Collection</option>
-<option>Wedding Collection</option>
-</select>
-
-<label>Size</label>
-<select required>
+<select id="size">
 <option>S</option>
 <option>M</option>
 <option>L</option>
 <option>XL</option>
-<option>XXL</option>
 </select>
 
-<label>Quantity</label>
-<input type="number" min="1" value="1">
+<input type="number" id="quantity" value="1" min="1">
 
-<label>Additional Notes</label>
-<textarea placeholder="Color, delivery details..."></textarea>
+<textarea id="notes" placeholder="Notes (optional)"></textarea>
 
 <button type="submit">Submit Order</button>
 
 </form>
 
-<p id="msg" style="text-align:center;margin-top:15px;"></p>
+<p id="msg"></p>
 
 </div>
 
-<footer>
-<p>Freedom Habesha Dress</p>
-<p>📍 Algeria St, Addis Ababa</p>
-<p>📞 090 428 9325</p>
-<p>&copy; 2026 All Rights Reserved</p>
-</footer>
-
 <script type="module">
-import { db, collection, addDoc } from "./firebase.js";
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const firebaseConfig = {
+apiKey: "YOUR_API_KEY",
+authDomain: "YOUR_PROJECT.firebaseapp.com",
+projectId: "YOUR_PROJECT_ID",
+storageBucket: "YOUR_PROJECT.appspot.com",
+messagingSenderId: "YOUR_SENDER_ID",
+appId: "YOUR_APP_ID"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+window.onload = function(){
+const product = localStorage.getItem("selectedProduct");
+if(product){
+document.getElementById("product").value = product;
+}
+}
 
 const form = document.getElementById("orderForm");
 const msg = document.getElementById("msg");
@@ -160,36 +124,24 @@ const msg = document.getElementById("msg");
 form.addEventListener("submit", async (e) => {
 e.preventDefault();
 
-const order = {
-name: form[0].value,
-phone: form[1].value,
-product: form[2].value,
-size: form[3].value,
-quantity: form[4].value,
-notes: form[5].value,
+const data = {
+name: document.getElementById("name").value,
+phone: document.getElementById("phone").value,
+product: document.getElementById("product").value,
+size: document.getElementById("size").value,
+quantity: document.getElementById("quantity").value,
+notes: document.getElementById("notes").value,
 status: "Pending",
-time: new Date().toISOString()
+time: new Date()
 };
 
-try {
-await addDoc(collection(db, "orders"), order);
+await addDoc(collection(db,"orders"), data);
 
-msg.textContent = "✅ Order sent successfully!";
-msg.style.color = "green";
-
+msg.textContent = "Order sent successfully!";
 form.reset();
-
-} catch (error) {
-msg.textContent = "❌ Error sending order!";
-msg.style.color = "red";
-}
+localStorage.removeItem("selectedProduct");
 });
-</window.onload = function(){
-const product = localStorage.getItem("selectedProduct");
-if(product){
-document.getElementById("product").value = product;
-}
-  }>
+</script>
 
 </body>
 </html>
