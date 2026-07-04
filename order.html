@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order | Freedom Habesha Dress</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#f8f6f2;
+}
+
+header{
+background:#111;
+color:#fff;
+padding:18px 8%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.logo{
+font-size:28px;
+font-weight:bold;
+color:#d4af37;
+}
+
+.container{
+max-width:700px;
+margin:50px auto;
+background:#fff;
+padding:35px;
+border-radius:15px;
+box-shadow:0 10px 25px rgba(0,0,0,.1);
+}
+
+h1{
+text-align:center;
+margin-bottom:25px;
+}
+
+label{
+display:block;
+margin-top:15px;
+font-weight:600;
+}
+
+input,select,textarea{
+width:100%;
+padding:12px;
+margin-top:8px;
+border:1px solid #ccc;
+border-radius:8px;
+font-size:16px;
+}
+
+textarea{
+height:120px;
+resize:vertical;
+}
+
+button{
+width:100%;
+margin-top:25px;
+padding:15px;
+background:#111;
+color:white;
+border:none;
+border-radius:8px;
+font-size:18px;
+cursor:pointer;
+}
+
+button:hover{
+background:#d4af37;
+color:#111;
+}
+
+footer{
+background:#111;
+color:white;
+text-align:center;
+padding:30px;
+margin-top:50px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">Freedom Habesha Dress</div>
+
+</header>
+
+<div class="container">
+
+<h1>Place Your Order</h1>
+
+<form id="orderForm">
+
+<label>Full Name</label>
+<input type="text" required>
+
+<label>Phone Number</label>
+<input type="tel" required>
+
+<label>Select Product</label>
+
+<select required>
+<option>Women's Habesha Dress</option>
+<option>Men's Traditional Wear</option>
+<option>Kids Collection</option>
+<option>Wedding Collection</option>
+</select>
+
+<label>Size</label>
+
+<select required>
+<option>S</option>
+<option>M</option>
+<option>L</option>
+<option>XL</option>
+<option>XXL</option>
+</select>
+
+<label>Quantity</label>
+
+<input type="number" min="1" value="1">
+
+<label>Additional Notes</label>
+
+<textarea placeholder="Color, design, delivery details..."></textarea>
+<button type="submit">Submit Order</button>
+
+</form>
+
+<p id="msg" style="text-align:center;margin-top:15px;color:green;"></p>
+
+</div>
+
+<footer>
+
+<p>Freedom Habesha Dress</p>
+<p>📍 Algeria St, Addis Ababa</p>
+<p>📞 090 428 9325</p>
+<p>&copy; 2026 All Rights Reserved</p>
+
+</footer>
+
+<script>
+
+const form = document.getElementById("orderForm");
+const msg = document.getElementById("msg");
+
+form.addEventListener("submit", function(e){
+e.preventDefault();
+
+msg.textContent = "✅ Order submitted successfully! We will call you soon.";
+
+form.reset();
+});
+
+</script>
+
+</body>
+</html>
